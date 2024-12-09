@@ -1,3 +1,4 @@
-# Avocado dataset(kaggle):  TabularDS-part1 
+# Avocado dataset(kaggle):  TabularDS-part1  
 
-![download](https://github.com/user-attachments/assets/996e04d5-8506-4fd9-9061-5c3add6202e7)
+![Stocksy-avocados-pits-Marti-Sans](https://github.com/user-attachments/assets/a7c290da-9813-4537-b61d-400e63550d75)
+
