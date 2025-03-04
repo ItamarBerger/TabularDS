@@ -12,13 +12,11 @@ movies_data = pd.read_csv('final_project/data/movie.csv')
 movie_popularity = data.groupby('movieId')['userId'].nunique().sort_values(ascending=False)
 
 # Select the top 10% most popular movies
-top_10_percent_count = int(0.1 * len(movie_popularity))
+top_10_percent_count = int(0.01 * len(movie_popularity))
 top_movies = movie_popularity.head(top_10_percent_count).index.tolist()
 
 # Filter dataset to only include these movies
 filtered_df = data[data['movieId'].isin(top_movies)]
-
-filtered_df = filtered_df[0:100000]
 
 
 user_movie_matrix = filtered_df.pivot_table(index='userId', columns='movieId', values='rating', aggfunc='count').fillna(0)
