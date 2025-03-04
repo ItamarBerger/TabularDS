@@ -13,7 +13,6 @@ def print_basic_metrics(rules):
 
 import matplotlib.pyplot as plt
 import networkx as nx
-from mlxtend.frequent_patterns import apriori, association_rules
 
 def plot_topk_rules_in_graph(rules, frequent_itemsets, k=10):
 
@@ -79,11 +78,7 @@ def plot_metrics_boxplots(rules):
 
 
 
-      # Suppress specific warnings
-warnings.filterwarnings("ignore", category=RuntimeWarning, message=".*invalid value encountered in divide*")
-warnings.filterwarnings("ignore", category=DeprecationWarning, message=".*DataFrames with non-bool types result in worse computationalperformance*")
 
-from mlxtend.frequent_patterns import fpgrowth, association_rules
 import numpy as np
 
 # Function to compute global support
