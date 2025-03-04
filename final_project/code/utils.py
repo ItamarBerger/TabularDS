@@ -18,6 +18,8 @@ top_movies = movie_popularity.head(top_10_percent_count).index.tolist()
 # Filter dataset to only include these movies
 filtered_df = data[data['movieId'].isin(top_movies)]
 
+filtered_df = filtered_df[0:100000]
+
 
 user_movie_matrix = filtered_df.pivot_table(index='userId', columns='movieId', values='rating', aggfunc='count').fillna(0)
 user_movie_matrix = user_movie_matrix.map(lambda x: 1 if x > 0 else 0)  # Convert to binary
