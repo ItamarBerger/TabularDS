@@ -36,21 +36,38 @@ Convert movieLens 20M dataset into transactional dataset
 """
 Convert Online Retails dataset into transactional
 """
-
 import pandas as pd
 
 # Sample data
 data = pd.read_csv('final_project/data/online_retail.csv')
-# Create DataFrame
+# Create DataFrame with relevant columns
 df = pd.DataFrame(data, columns=['InvoiceNo', 'StockCode', 'Description', 'Quantity', 'InvoiceDate', 'UnitPrice', 'CustomerID', 'Country'])
 
-# Create a transactional matrix
-transaction_matrix = pd.pivot_table(df, 
-                                    index='CustomerID', 
-                                    columns='Description', 
-                                    values='Quantity', 
-                                    aggfunc=lambda x: 1, 
-                                    fill_value=0)
+# Get the number of unique products purchased by each customer, sorted in descending order
+product_popularity = df.groupby('Description')['CustomerID'].nunique().sort_values(ascending=False)
 
-transaction_matrix.to_csv('final_project/data/online_retail_transactional.csv', index=False)
 
+# Top 15% of customers based on product count
+top_10_percent_count = int(0.15 * len(product_popularity))
+
+
+# Get the products purchased by the top 15% of customers
+top_prods = product_popularity.head(top_10_percent_count).index.tolist()
+
+print(top_prods)
+
+
+# Filter the original dataset for the products purchased by the top customers
+filtered_df = df[df['Description'].isin(top_prods)]
+
+# Create a transactional matrix where each cell indicates whether a customer bought the product
+transaction_matrix = filtered_df.pivot_table(
+    index='CustomerID', 
+    columns='Description', 
+    values='Quantity', 
+    aggfunc=lambda x: 1,  # Indicate presence (purchase) of the item
+    fill_value=0  # Fill NaNs with 0 (i.e., no purchase)
+)
+
+# Save the transactional matrix to a CSV file with CustomerID included
+transaction_matrix.to_csv('final_project/data/online_retail_transactional.csv', index=True)
