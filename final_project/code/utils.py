@@ -92,7 +92,7 @@ df = pd.read_csv("final_project/data/user_artists.dat", delimiter="\t")
 df.columns = ["userID", "artistID", "weight"]
 
 # Find the top 10% most popular artists
-top_1_percent_threshold = int(len(df["artistID"].unique()) * 0.2)
+top_1_percent_threshold = int(len(df["artistID"].unique()) * 0.015)
 top_artists = df["artistID"].value_counts().nlargest(top_1_percent_threshold).index
 
 #  Filter dataset to include only the top 1% artists
@@ -114,4 +114,4 @@ print(df_transactional.head())
 
 
 # Save as CSV (comma-separated)
-df_transactional.to_csv("user_artists_transactional.csv", index=False)
+df_transactional.to_csv("final_project/data/user_artists_transactional.csv", index=False)
