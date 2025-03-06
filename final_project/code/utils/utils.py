@@ -124,14 +124,14 @@ Convert Netflix Prize dataset into transactional - preprocess inspired by kaggle
 """
 
 # Load single data-file
+import pandas as pd
+from collections import deque
+
+# Load the dataset
 df_raw = pd.read_csv('final_project/data/combined_data_1.txt', header=None, names=['User', 'Rating', 'Date'], usecols=[0, 1, 2])
 
-
-
-
-# Find empty rows to slice dataframe for each movie
+# Find empty rows to slice the dataframe for each movie
 tmp_movies = df_raw[df_raw['Rating'].isna()]['User'].reset_index()
-
 movie_indices = [[index, int(movie[:-1])] for index, movie in tmp_movies.values]
 
 # Shift the movie_indices by one to get start and endpoints of all movies
@@ -143,13 +143,12 @@ user_data = []
 
 # Iterate over all movies
 for [df_id_1, movie_id], [df_id_2, next_movie_id] in zip(movie_indices, shifted_movie_indices):
-    
     # Check if it is the last movie in the file
     if df_id_1 < df_id_2:
         tmp_df = df_raw.loc[df_id_1+1:df_id_2-1].copy()
     else:
         tmp_df = df_raw.loc[df_id_1+1:].copy()
-        
+
     # Create movie_id column
     tmp_df['Movie'] = movie_id
     
@@ -170,18 +169,20 @@ df_filtered = df[df['Movie'].isin(top_20_percent_movies)]
 transactional_data = df_filtered[0:50000]
 transactional_data = pd.pivot_table(transactional_data, index='User', columns='Movie', aggfunc=lambda x: 1, fill_value=0)
 
-
-import pandas as pd
-
+# Load movie titles
 movie_titles_df = pd.read_csv('final_project/data/movie_titles.csv', encoding='ISO-8859-1', on_bad_lines='skip', header=None, names=['id', 'year', 'title'])
 print(movie_titles_df.head())
 
-for col in transactional_data.columns:
-    movie_id = col[1]
-    movie_title = movie_titles_df[movie_titles_df['id'] == movie_id].iloc[0]['title']
-    transactional_data.rename(columns={col: movie_title}, inplace=True)
+# Rename columns with movie titles
+# Rename columns with movie titles
+# Now, the movie_ids are in the 'Movie' column in transactional_data, so we need to map movie_id to the title
+movie_titles_dict = movie_titles_df.set_index('id')['title'].to_dict()
+
+# Replace the movie IDs in the columns with titles
+transactional_data.rename(columns=movie_titles_dict, inplace=True)
 
 # Display the transactional dataset
 print(transactional_data.head())
 
+# Save the transactional dataset
 transactional_data.to_csv('final_project/data/netflix_transactional.csv', index=False)
