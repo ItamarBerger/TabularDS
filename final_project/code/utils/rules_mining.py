@@ -29,16 +29,13 @@ def plot_topk_rules_in_graph(rules, frequent_itemsets, k=10):
 
     # Draw the directed graph
     plt.figure(figsize=(18, 13))
-    pos = nx.spring_layout(G, k=0.5, iterations=k)  # Layout for the graph
-
+    pos = nx.spring_layout(G, k=0.5, iterations=k) 
     # Draw the nodes and edges
     nx.draw_networkx_nodes(G, pos, node_size=150, node_color='lightblue', alpha=0.7)
     nx.draw_networkx_edges(G, pos, width=1.0, alpha=0.5, arrowstyle='->', arrowsize=3)
     nx.draw_networkx_labels(G, pos, font_size=7, font_color='black')
 
-    # Add edge labels (optional, if you want to display lift, confidence, or support)
-    # edge_labels = nx.get_edge_attributes(G, 'weight')
-    # nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
+
 
     plt.title("Sample Association Rules Directed Graph")
     plt.axis('off')
@@ -82,8 +79,6 @@ def plot_metrics_boxplots(rules):
 import numpy as np
 
 # Function to compute global support
-import numpy as np
-
 def calculate_global_support(itemset, full_data):
     """Calculate global support of an itemset across the entire transactions dataset efficiently."""
     itemset = list(itemset)  # Ensure itemset is a list
