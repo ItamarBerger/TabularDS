@@ -25,25 +25,35 @@ def  filter_valid_clusters_by_size(df):
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 def plot_cluster_distribution(df):
-  # Get the distribution of clusters (as percentages only)
-  cluster_percentages = (df['Cluster'].value_counts(normalize=True) * 100).sort_index()
+    # Get the distribution of clusters (as percentages)
+    cluster_percentages = (df['Cluster'].value_counts(normalize=True) * 100).sort_index()
 
-  # Plot the distribution using seaborn barplot
-  plt.figure(figsize=(10, 6))
-  sns.barplot(x=cluster_percentages.index, y=cluster_percentages.values, hue=cluster_percentages.index, palette='viridis', legend=False)
+    # Convert to DataFrame for compatibility
+    cluster_df = cluster_percentages.reset_index()
+    cluster_df.columns = ['Cluster', 'Percentage']
 
-  # Add labels and title
-  plt.title('Distribution of Items Across Clusters (Percentage)', fontsize=16)
-  plt.xlabel('Cluster', fontsize=12)
-  plt.ylabel('Percentage of Items (%)', fontsize=12)
+    # Plot the distribution using Seaborn barplot
+    plt.figure(figsize=(10, 6))
+    sns.barplot(
+        data=cluster_df, 
+        x="Cluster", 
+        y="Percentage", 
+        hue="Cluster",
+        palette='viridis', 
+        legend=False 
+    )
 
-  # Remove x-tick labels (to avoid showing the cluster index)
-  plt.xticks([])
+    # Add labels and title
+    plt.title('Distribution of Items Across Clusters (Percentage)', fontsize=16)
+    plt.xlabel('Cluster', fontsize=12)
+    plt.ylabel('Percentage of Items (%)', fontsize=12)
 
-  # Show the plot
-  plt.tight_layout()
-  plt.show()
+    # Show the plot
+    plt.tight_layout()
+    plt.show()
+
 
 
 
