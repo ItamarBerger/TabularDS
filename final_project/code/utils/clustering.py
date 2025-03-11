@@ -31,7 +31,7 @@ def plot_cluster_distribution(df):
 
   # Plot the distribution using seaborn barplot
   plt.figure(figsize=(10, 6))
-  sns.barplot(x=cluster_percentages.index, y=cluster_percentages.values, palette='viridis')
+  sns.barplot(x=cluster_percentages.index, y=cluster_percentages.values, hue=cluster_percentages.index, palette='viridis', legend=False)
 
   # Add labels and title
   plt.title('Distribution of Items Across Clusters (Percentage)', fontsize=16)
@@ -47,7 +47,7 @@ def plot_cluster_distribution(df):
 
 
 
-  def calculate_sparsity(cluster_data):
+def calculate_sparsity(cluster_data):
     """Calculate the sparsity of the cluster data."""
     total_entries = cluster_data.size
     non_zero_entries = cluster_data.values.sum()
