@@ -4,7 +4,7 @@
 
 # Final Project: Improving Association Rule Mining using Clustering-Based Item Similarity
 
-This repository contains the code, data, results, and visualizations for my final project. The main goal of the project is to apply and compare a proposed solution for rule mining with a baseline approach using 4 datasets. Below is an overview of the folder structure and where to find what in the repository.
+This repository contains the code, data, results, and visualizations for my final project. The main goal of the project is to apply and compare a proposed solution for ARM with a baseline approach using 4 datasets. Below is an overview of the folder structure and where to find what in the repository.
 
 ## Folder Structure
 
