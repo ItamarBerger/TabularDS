@@ -35,6 +35,6 @@ This folder contains the results of applying the methods to each dataset.
 This folder contains visualizations primarily for my personal use, including any figures or plots that were generated during the process. These are all provided in the relevant notebooks mentioned above.
 
 
-### 6. **report.pdf**
+### 6. **`report.pdf`**
 This file contains a full report describing the background, solution overview, results and related work relevant to the project.
 
