@@ -78,7 +78,7 @@ def plot_metrics_boxplots(rules):
 
 import numpy as np
 
-# Function to compute global support
+# Function to compute global support of rules across the entire dataset
 def calculate_global_support(itemset, full_data):
     """Calculate global support of an itemset across the entire transactions dataset efficiently."""
     itemset = list(itemset)  # Ensure itemset is a list

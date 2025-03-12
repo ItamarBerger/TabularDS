@@ -1,6 +1,7 @@
 
 
 from sklearn.cluster import KMeans
+# Function to add a cluster id for each row in a given dataset using the Kmeans algorithm
 
 def add_cluster_users_col(num_clusters, transactions_matrix):
     kmeans = KMeans(n_clusters=num_clusters, random_state=42)
